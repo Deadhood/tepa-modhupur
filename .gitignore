@@ -1,0 +1,3 @@
+.hz/secrets.toml
+rethinkdb_data
+node_modules
