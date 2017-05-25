@@ -1,0 +1,13 @@
+{
+  "restartable": "rs",
+  "verbose": false,
+  "exec": "yarn start",
+  "watch": [
+    ".hz",
+    "webpack.config.js"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js toml"
+}

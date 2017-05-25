@@ -11,9 +11,11 @@ const OUTPUT_DIR = path.resolve(__dirname, 'dist')
 // need to be added to this array so webpack will pick them up
 const defaultInclude = [SRC_DIR]
 
+const isDev = process.env.NODE_ENV !== 'production'
+
 const extractSass = new ExtractTextPlugin({
   filename: 'bundle.css',
-  disable: process.env.NODE_ENV !== 'production'
+  disable: isDev
 })
 
 const webpackConfig = {
@@ -24,7 +26,6 @@ const webpackConfig = {
     filename: 'bundle.js'
   },
   module: {
-    noParse: /core-js/,
     rules: [
       {
         test: /\.(s[ac]|c)ss$/,
@@ -49,7 +50,8 @@ const webpackConfig = {
             loader: 'buble-loader'
           }
         ],
-        include: defaultInclude
+        include: defaultInclude,
+        exclude: /node_modules/
       },
       {
         test: /\.(jpe?g|png|gif)$/,
@@ -80,22 +82,18 @@ const webpackConfig = {
   target: 'web',
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Tepa Modhupur'
+      title: 'Tepa Modhupur',
+      template: 'src/_template.ejs'
     }),
     extractSass
   ],
   devtool: 'cheap-inline-source-map',
-  stats: {
-    colors: true,
-    children: false,
-    chunks: false,
-    modules: false
-  }
+  stats: 'minimal'
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (!isDev) {
+  delete webpackConfig.devtool
   webpackConfig.plugins.push(new webpack.optimize.UglifyJsPlugin())
-  webpackConfig.devtool = undefined
 }
 
 module.exports = webpackConfig
