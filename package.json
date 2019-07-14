@@ -17,7 +17,7 @@
   "devDependencies": {
     "babel-eslint": "^9.0.0",
     "buble-loader": "^0.4.1",
-    "cross-env": "^5.0.0",
+    "cross-env": "^5.2.0",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^2.0.0",
